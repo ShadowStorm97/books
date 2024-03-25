@@ -2,42 +2,52 @@
 <html>
 <head>
     <title>我的GitHub仓库</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        ul {
-            list-style-type: none;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            color: #0366d6;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div id="content"></div>
+    <div class="container mt-4">
+        <h1>我的GitHub仓库</h1>
+        <ul id="content" class="list-group mt-4"></ul>
+    </div>
+
+    <!-- 模态窗口 -->
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fileModalLabel">文件详情</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="fileInfo"></p>
+                    <a id="downloadButton" class="btn btn-primary" download>下载</a>
+                    <a id="previewButton" class="btn btn-secondary" target="_blank">预览</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script>
-        fetch('https://api.github.com/repos/ShadowStorm97/books/contents/')
+        fetch('https://api.github.com/repos/your-username/your-repo/contents/')
             .then(response => response.json())
             .then(data => {
                 let content = document.getElementById('content');
-                let ul = document.createElement('ul');
                 data.forEach(item => {
                     let li = document.createElement('li');
-                    let a = document.createElement('a');
-                    a.href = item.html_url;
-                    a.textContent = item.name;
-                    li.appendChild(a);
-                    ul.appendChild(li);
+                    li.className = 'list-group-item';
+                    li.textContent = item.name;
+                    li.onclick = function() {
+                        document.getElementById('fileInfo').textContent = '文件名：' + item.name + '，大小：' + item.size + '字节';
+                        document.getElementById('downloadButton').href = item.download_url;
+                        document.getElementById('previewButton').href = item.html_url;
+                        $('#fileModal').modal('show');
+                    };
+                    content.appendChild(li);
                 });
-                content.appendChild(ul);
             });
     </script>
 </body>
