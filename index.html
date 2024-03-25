@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的GitHub仓库</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        ul {
+            list-style-type: none;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+    <script>
+        fetch('https://api.github.com/repos/ShadowStorm97/books/contents/')
+            .then(response => response.json())
+            .then(data => {
+                let content = document.getElementById('content');
+                let ul = document.createElement('ul');
+                data.forEach(item => {
+                    let li = document.createElement('li');
+                    let a = document.createElement('a');
+                    a.href = item.html_url;
+                    a.textContent = item.name;
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+                content.appendChild(ul);
+            });
+    </script>
+</body>
+</html>
