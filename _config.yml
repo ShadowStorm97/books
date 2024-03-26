@@ -1,48 +1,27 @@
 title: 高羽的私人电子仓库
 description: 个人电子书仓库，维护了一些历史、人文、计算机、哲学相关的书籍。
-theme: jekyll-theme-cayman
+theme: minima
 include:
   - _pages
-  - ./
-  
-# SITE CONFIGURATION
-baseurl: ""
-url: "https://shadowstorm97.github.io"
 
-# Header and footer text
-header_text: >
-     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-     <p>Remove all header text in <code>_config.yml</code> to disable this feature.</p>
-header_text_feature_image:
-footer_text: >
-   Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
-
-# Scripts
-google_analytics: # Tracking ID, e.g. "UA-000000-01"
-disqus_shortname:
-katex: true # Enable if using math markup
-search: false # Enable the search feature
-
-
-# Colours, typography and padding
-# Open the "_sass > base" folder, and open "_variables.scss"
-google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
-
-# Post navigation
-post_navigation: false
-
-# PAGINATION
-paginate: 5
-paginate_path: "blog/page:num"
-
-# BUILD SETTINGS
-markdown: kramdown
-highlighter: rouge
+# 下面是自定义配置的示例
+# 多个自定义 CSS 的路径
 sass:
   sass_dir: _sass
   style: :compressed
-plugins: [jekyll-paginate]
-exclude:
-  - Gemfile
-  - Gemfile.lock
+
+# 自定义的头信息、页脚等布局文件路径
+layouts_dir: _layouts
+
+# 插件 (确保你在 Gemfile 中已经添加了这些 gems)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 自定义的颜色和字体示例
+# main.scss 中可以覆盖这些样式
+minima:
+  color_scheme: dark # 更改色彩主题，可能是 'dark' 或其他 Minima 支持的色彩主题
+  heading_font: "Helvetica Neue, Helvetica, Arial, sans-serif" # 更改标题字体
+  body_font: "Georgia, serif" # 更改主体文本字体
