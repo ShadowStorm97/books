@@ -3,8 +3,8 @@ require 'yaml'
 
 desc "Generate ebook list and update Jekyll site"
 task :generate_ebook_list do
-  ebook_dir = '/'
-  ebook_list_page = './_pages/ebooks.md' # 
+  ebook_dir = 'ebooks'
+  ebook_list_page = './_pages/ebooks.md' 
 
   # 存储分类文件夹及其下的电子书
   categories = {}
