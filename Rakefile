@@ -38,13 +38,14 @@ task :generate_ebook_list do
   content = "# 电子书列表\n\n"
   categories.each do |category, ebooks|
     content << "## #{category}\n\n"
+    
     ebooks.each do |ebook|
+      # URL编码文件名和类别名
       encoded_ebook_filename = CGI.escape(ebook).gsub('+', '%20')
-      # 提醒：如果 category 有可能包含特殊字符，
-      # 还需要对 category 也进行相同的编码与替换
       encoded_category = CGI.escape(category).gsub('+', '%20')
   
-      content << "- [#{ebook}](/ebooks/#{encoded_category}/#{encoded_ebook_filename})\n"
+      # 更新链接格式以匹配所需的路径格式
+      content << "- [#{ebook}](https://shadowstorm97.github.io/books/#{encoded_category}/#{encoded_ebook_filename})\n"
     end
     content << "\n"
   end
