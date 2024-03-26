@@ -47,6 +47,11 @@ jobs:
         with:
           source: ./
           destination: ./_site
+          
+      # 新添加的步骤，打印 _site 文件夹的内容
+      - name: List contents of _site directory
+        run: |
+          ls -R _site
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
