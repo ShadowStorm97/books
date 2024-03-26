@@ -1,32 +1,33 @@
 require 'rake'
 require 'yaml'
+require 'uri'
+
+EBOOK_EXTENSIONS = ['.epub', '.mobi', '.pdf'].freeze
 
 desc "Generate ebook list and update Jekyll site"
 task :generate_ebook_list do
-
   # Print the current working directory
   puts "Current working directory: #{Dir.pwd}"
 
   ebook_dir = './'
-  ebook_list_page = './_pages/ebooks.md' 
-
-  # List files in ebook_dir to ensure it's not empty
-  puts "Listing files in ebooks directory:"
-  Dir.glob("#{ebook_dir}/*").each do |file|
-    puts file
-  end
+  ebook_list_page = './_pages/ebooks.md'
 
   # 存储分类文件夹及其下的电子书
   categories = {}
 
   # 扫描目录
-  Dir.glob("#{ebook_dir}/**/*").each do |file|
-    next if File.directory?(file)
+  Dir.glob("#{ebook_dir}/**/*./*").each do |file|
+    next unless File.file?(file) && EBOOK_EXTENSIONS.include?(File.extname(file).downcase)
     
     # 分类电子书
     category = File.basename(File.dirname(file))
     categories[category] ||= []
-    categories[category] << File.basename(file)
+    
+    # 文件名进行 URI 编码
+    encoded_file = URI.encode(file)
+    
+    # 添加编码过的文件名
+    categories[category] << { name: File.basename(file), path: encoded_file }
   end
 
   # 准备写入 Markdown 文件的内容
@@ -34,9 +35,8 @@ task :generate_ebook_list do
   categories.each do |category, ebooks|
     content << "## #{category}\n\n"
     ebooks.each do |ebook|
-      # 这里根据需要使用 Markdown 格式创建链接
-      # 假设电子书放在 'ebooks' 目录下，可以根据实际情况调整路径
-      content << "- [#{ebook}](/ebooks/#{category}/#{ebook})\n"
+      # 使用编码过的路径创建 Markdown 链接
+      content << "- [#{ebook[:name]}](/#{ebook[:path]})\n"
     end
     content << "\n"
   end
@@ -57,12 +57,3 @@ task :generate_ebook_list do
   end
 end
 
-desc "Build the Jekyll site"
-task :build => [:generate_ebook_list] do
-  sh "bundle exec jekyll build"
-end
-
-desc "Serve the Jekyll site"
-task :serve => [:generate_ebook_list] do
-  sh "bundle exec jekyll serve"
-end
