@@ -3,8 +3,8 @@ require 'yaml'
 
 desc "Generate ebook list and update Jekyll site"
 task :generate_ebook_list do
-  ebook_dir = 'path/to/your/ebook/repository'
-  ebook_list_page = 'path/to/your/jekyll/pages/ebooks.md' # 举例位置
+  ebook_dir = '/'
+  ebook_list_page = './_pages/ebooks.md' # 
 
   # 存储分类文件夹及其下的电子书
   categories = {}
@@ -31,7 +31,10 @@ task :generate_ebook_list do
     content << "\n"
   end
 
-  # 写入文件
+  # 在写入文件之前确保目录存在
+  FileUtils.mkdir_p(File.dirname(ebook_list_page))
+
+  # 然后写入文件
   File.open(ebook_list_page, 'w') { |file| file.write(content) }
 
   puts '电子书列表已生成。'
