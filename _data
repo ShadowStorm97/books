@@ -1,8 +1,0 @@
-- title: "Example Book One"
-  author: "Author One"
-  cover: "/assets/covers/book-one.jpg"
-  pdf: "/ebooks/book-one.pdf"
-- title: "Example Book Two"
-  author: "Author Two"
-  cover: "/assets/covers/book-two.jpg"
-  pdf: "/ebooks/book-two.pdf"
