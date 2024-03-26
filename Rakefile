@@ -1,5 +1,6 @@
 require 'rake'
 require 'yaml'
+require 'cgi'
 
 desc "Generate ebook list and update Jekyll site"
 task :generate_ebook_list do
@@ -34,14 +35,12 @@ task :generate_ebook_list do
   categories.each do |category, ebooks|
     content << "## #{category}\n\n"
     ebooks.each do |ebook|
-      # 文件名进行 URI 编码，确保链接可以正常工作
-      # CGI.escape用于替代URI.encode方法，因为后者在较新的Ruby版本中已经不推荐使用。
-      # 注意：CGI.escape将空格转换为"+", 对于URL的路径部分，我们通常需要将空格转换成"%20"，所以进行了额外的gsub操作。
       encoded_ebook_filename = CGI.escape(ebook).gsub('+', '%20')
+      # 提醒：如果 category 有可能包含特殊字符，
+      # 还需要对 category 也进行相同的编码与替换
+      encoded_category = CGI.escape(category).gsub('+', '%20')
   
-      # 构建 Markdown 超链接
-      # 请根据实际情况调整路径前缀，下面的例子假定所有电子书都存放在 "ebooks" 目录下的各个分类子目录中。
-      content << "- [#{ebook}](/ebooks/#{category}/#{encoded_ebook_filename})\n"
+      content << "- [#{ebook}](/ebooks/#{encoded_category}/#{encoded_ebook_filename})\n"
     end
     content << "\n"
   end
