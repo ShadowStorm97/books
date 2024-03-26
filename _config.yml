@@ -1,3 +1,5 @@
 title: 我的网站
 description: 这是我的GitHub Pages网站。
 theme: minima
+include:
+  - _pages
