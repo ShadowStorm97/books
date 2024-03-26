@@ -3,3 +3,4 @@ description: 这是我的GitHub Pages网站。
 theme: minima
 include:
   - _pages
+  - ./
