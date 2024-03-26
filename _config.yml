@@ -1,6 +1,48 @@
 title: 高羽的私人电子仓库
 description: 个人电子书仓库，维护了一些历史、人文、计算机、哲学相关的书籍。
-theme: minima
+theme: jekyll-theme-cayman
 include:
   - _pages
   - ./
+  
+# SITE CONFIGURATION
+baseurl: ""
+url: "https://shadowstorm97.github.io"
+
+# Header and footer text
+header_text: >
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+     <p>Remove all header text in <code>_config.yml</code> to disable this feature.</p>
+header_text_feature_image:
+footer_text: >
+   Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/rohanchandra/type-theme">Type Theme</a>
+
+# Scripts
+google_analytics: # Tracking ID, e.g. "UA-000000-01"
+disqus_shortname:
+katex: true # Enable if using math markup
+search: false # Enable the search feature
+
+
+# Colours, typography and padding
+# Open the "_sass > base" folder, and open "_variables.scss"
+google_fonts: "Source+Sans+Pro:400,700,700italic,400italic"
+
+# Post navigation
+post_navigation: false
+
+# PAGINATION
+paginate: 5
+paginate_path: "blog/page:num"
+
+# BUILD SETTINGS
+markdown: kramdown
+highlighter: rouge
+sass:
+  sass_dir: _sass
+  style: :compressed
+plugins: [jekyll-paginate]
+exclude:
+  - Gemfile
+  - Gemfile.lock
