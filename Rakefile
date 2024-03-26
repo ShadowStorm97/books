@@ -7,7 +7,7 @@ task :generate_ebook_list do
   # Print the current working directory
   puts "Current working directory: #{Dir.pwd}"
 
-  ebook_dir = 'ebooks'
+  ebook_dir = './'
   ebook_list_page = './_pages/ebooks.md' 
 
   # List files in ebook_dir to ensure it's not empty
