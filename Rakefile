@@ -3,8 +3,18 @@ require 'yaml'
 
 desc "Generate ebook list and update Jekyll site"
 task :generate_ebook_list do
+
+  # Print the current working directory
+  puts "Current working directory: #{Dir.pwd}"
+
   ebook_dir = 'ebooks'
   ebook_list_page = './_pages/ebooks.md' 
+
+  # List files in ebook_dir to ensure it's not empty
+  puts "Listing files in ebooks directory:"
+  Dir.glob("#{ebook_dir}/*").each do |file|
+    puts file
+  end
 
   # 存储分类文件夹及其下的电子书
   categories = {}
@@ -36,8 +46,15 @@ task :generate_ebook_list do
 
   # 然后写入文件
   File.open(ebook_list_page, 'w') { |file| file.write(content) }
-
   puts '电子书列表已生成。'
+
+  # Print the generated list content for debugging
+  if File.exists?(ebook_list_page)
+    puts "Content of #{ebook_list_page}:"
+    puts File.read(ebook_list_page)
+  else
+    puts "Error: #{ebook_list_page} does not exist."
+  end
 end
 
 desc "Build the Jekyll site"
