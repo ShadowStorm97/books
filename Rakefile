@@ -26,7 +26,8 @@ task :generate_ebook_list do
 
   # 扫描目录
   Dir.glob("#{ebook_dir}/**/*").each do |file|
-    next if File.directory?(file)
+    # 只处理已定义的电子书格式文件
+    next unless EBOOK_EXTENSIONS.include?(File.extname(file).downcase)
     
     # 分类电子书
     category = File.basename(File.dirname(file))
