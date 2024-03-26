@@ -2,6 +2,8 @@ require 'rake'
 require 'yaml'
 require 'cgi'
 
+EBOOK_EXTENSIONS = ['.epub', '.mobi', '.pdf'].freeze
+
 desc "Generate ebook list and update Jekyll site"
 task :generate_ebook_list do
 
@@ -14,7 +16,9 @@ task :generate_ebook_list do
   # List files in ebook_dir to ensure it's not empty
   puts "Listing files in ebooks directory:"
   Dir.glob("#{ebook_dir}/*").each do |file|
-    puts file
+    if File.file?(file) && EBOOK_EXTENSIONS.include?(File.extname(file).downcase)
+        puts file
+    end
   end
 
   # 存储分类文件夹及其下的电子书
